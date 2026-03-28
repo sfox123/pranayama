@@ -47,6 +47,14 @@ export default function Page() {
       >
         Set Routine
       </motion.button>
+      <motion.button 
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => router.push("/anapanasati")}
+        className="mt-4 bg-transparent border border-white text-white px-12 py-4 rounded-full font-bold tracking-widest uppercase text-sm shadow-lg shadow-white/10 hover:bg-white hover:text-black transition-colors cursor-pointer"
+      >
+        Anapanasati
+      </motion.button>
     </motion.main>
   );
 }
