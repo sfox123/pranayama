@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Anapanasati() {
-    const [minutes, setMinutes] = useState<number>(15);
+    const [minutes, setMinutes] = useState<string>("15");
     const [isRunning, setIsRunning] = useState(false);
     const [timeLeft, setTimeLeft] = useState(0);
 
@@ -21,7 +21,7 @@ export default function Anapanasati() {
         };
     }, []);
 
-    const totalSeconds = minutes * 60;
+    const totalSeconds = Number(minutes) * 60;
     const progress = totalSeconds > 0 ? ((totalSeconds - timeLeft) / totalSeconds) * 100 : 0;
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export default function Anapanasati() {
     }, [isRunning, timeLeft]);
 
     const handleStart = async () => {
-        setTimeLeft(minutes * 60);
+        setTimeLeft(Number(minutes) * 60);
         setIsRunning(true);
         try {
             if (bgAudio.current) {
@@ -116,11 +116,13 @@ export default function Anapanasati() {
                                 className="flex flex-col items-center"
                             >
                                 <input
-                                    type="number"
+                                    type="text"
                                     value={minutes}
-                                    onChange={(e) => setMinutes(Number(e.target.value))}
+                                    onChange={(e) => {
+                                        const value = e.target.value.replace(/[^0-9]/g, '');
+                                        setMinutes(value);
+                                    }}
                                     className="bg-transparent border-none text-6xl font-extralight text-center text-white focus:outline-none w-32 font-mono"
-                                    min="1"
                                 />
                                 <span className="text-[10px] tracking-[0.4em] text-slate-500 uppercase mt-2">Minutes</span>
                             </motion.div>
